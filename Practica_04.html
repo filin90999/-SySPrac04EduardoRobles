@@ -99,7 +99,7 @@ convconm(x,h)
 %
 % _Robles Filio Eduardo_ 
 %
-% _Rodriguez Moreno Luis Manuel_
+% _Rodríguez Moreno Luis Manuel_
 %
 %% Objetivos
 % 
@@ -109,19 +109,19 @@ convconm(x,h)
 %
 %% Introducción
 %
-% De acuerdo con el teorema fundamental del cálculo, si una funcion $f(t)$
+% De acuerdo con el teorema fundamental del cálculo, si una función $f(t)$
 % es integrable y $\frac{d}{dt}F(t)=f(t)$ entonces.
 % 
 % $\int_{a}^{b}f(t)\;dt=F(b)-F(a)$
 %
-% Con esto encontramos el valor numérico asociado a el área limitada por:
+% Con esto encontramos el valor numérico asociado al área limitada por:
 % 
-% * La funcion $f(t)$
+% * La función $f(t)$
 % * La recta (r1) entre los puntos $(a,0) , (a,f(a))$
 % * La recta (r2) entre los puntos $(b,0) , (b,f(b))$
 % * La recta (r3) entre los puntos $(a,0) , (b,0)$
 % 
-% Ovservese la siguiente gráfica donde:
+% Obsérvese la siguiente gráfica donde:
 % 
 % * $f(t)=e^{-t}$
 % * $a=-1$
@@ -129,11 +129,11 @@ convconm(x,h)
 %
 % <<Figura_v1.jpg>>
 %
-% El valor de el area sombreada será:
+% El valor del área sombreada será:
 %
 % $\int_{-1}^{1}e^{-t}\;dt=F(1)-F(-1)$
 %
-% En ocaciones encontrar $F(t)$ es dificil o imposible.
+% En ocaciones encontrar $F(t)$ es difícil o imposible.
 % Esto lo podemos ver claramente con el siguiente ejemplo:
 % 
 % $f(t)=e^{-t^2}$
@@ -146,18 +146,18 @@ convconm(x,h)
 % imposible aproximar un valor para ello.
 % 
 % Es aqui donde es relevante hablar de los Métodos de Integración Numérica
-% que analizaremos a continuacion.
+% que analizaremos a continuación.
 %%
-% *Formulas Cerradas de Newton-Cotes* 
+% *Fórmulas Cerradas de Newton-Cotes* 
 % 
-% Estas formulas ayudan a resolver integrales como la que hemos propuesto
+% Estas fórmulas ayudan a resolver integrales como la que hemos propuesto
 % anteriormente bajo el siguiente esquema:
 %
-% Se piensa que $f(t)$ es derivable un determinado numero de veces y además
+% Se piensa que $f(t)$ es derivable un determinado número de veces y además
 % la derivada es continua, de acuerdo a la Interpolación Polinómica de
 % Lagrange sabemos que la forma de una función puede aproximarse por un
 % polinomio de grado n (el grado dependerá del número de puntos donde el
-% polinomio y la funcion coincidan) mas un término de error.
+% polinomio y la funcion coincidan) más un término de error.
 %
 % $f(x)=P(x)+\frac{f^{n+1}(E(x))}{(n+1)!}(x-x_0)(x-x_1)...(x-x_n)$
 %
@@ -182,9 +182,9 @@ convconm(x,h)
 % $\int_{x_0}^{x_1}f(t)\;dt=\frac{h}{2}[f(x_0)+f(x_1)]-\frac{h^3}{12}[\frac{d^2}{dt^2}f(E)]$
 % donde $(x_0 \leq E \leq x_1)$
 % 
-% Esta formula de aproximacion tiene algo que se le conoce como _Grado de
+% Esta fórmula de aproximación tiene algo que se le conoce como _Grado de
 % Precisión_ que se refiere al polinomio de mayor grado de tal manera que
-% las formulas de Newton-Cotes son exactas.
+% las fórmulas de Newton-Cotes son exactas.
 %%
 % Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante la regla del
 % trapecio se realiza la aproximación de la siguiente forma:
@@ -263,7 +263,7 @@ convconm(x,h)
 % curva de una función $f(t)$ se parece cada vez más a la ideal a su vez que el
 % error disminuye, pero no desaparece.
 % 
-% Esta idea nos arroja la siguiente formula
+% Esta idea nos arroja la siguiente fórmula
 %
 % $\int_{a}^{b}f(t)\;dt=\frac{h}{2}[f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)]-\frac{b-a}{12}h^2[\frac{d^2}{dt^2}f(E)]$
 % donde $(a \leq E \leq b)$
@@ -303,7 +303,7 @@ convconm(x,h)
 % subintervalos, esto nos quiere decir que necesariamente el intervalo
 % $[a,b]$ debe ser segmentado en _partes pares iguales_.
 % 
-% Con esta idea en mente, la formula sería la siguiente:
+% Con esta idea en mente, la fórmula sería la siguiente:
 %
 % $\int_{a}^{b}f(t)\;dt=\frac{h}{3}[f(a)+2\sum_{j=1}^{\frac{n}{2}-1}f(x_{2j})+4\sum_{j=1}^{\frac{n}{2}}f(x_{2j-1})+f(b)]-\frac{b-a}{180}h^4[\frac{d^4}{dt^4}f(E)]$
 % donde $(a \leq E \leq b)$
@@ -338,7 +338,7 @@ convconm(x,h)
 %%
 % *Cuadratura Gaussiana*
 % 
-% Lo que se pretende en este metodo es realizar la $\int_{a}^{b}f(t)\;dt$
+% Lo que se pretende en este método es realizar la $\int_{a}^{b}f(t)\;dt$
 % como una suma de la evaluación de la función en ciertos puntos
 % multiplicada por ciertas constantes, es decir, como
 % $\sum_{i=1}^{n}C_if(x_i)$.
@@ -371,7 +371,7 @@ convconm(x,h)
 % Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante Cuadratura
 % Gaussiana se realiza la aproximación de la siguiente forma:
 %
-% Con $(n=2)$ y apoyandonos en la tabla de raices y coeficientes
+% Con $(n=2)$ y apoyándonos en la tabla de raices y coeficientes
 % 
 % $\int_{-1}^{1}e^{-t^2}\;dt=e^{-(0.577350269189626)^2}+e^{-(-0.577350269189626)^2}$
 % $\int_{-1}^{1}e^{-t^2}\;dt= 1.433062$
@@ -384,13 +384,13 @@ convconm(x,h)
 %
 %% Ejercicio 1
 %
-% Para el PR04 reporte la grafica de la simulación númerica de la
+% Para el PR04 reporte la gráfica de la simulación númerica de la
 % convolución y compare con el resultado análitico que obtuvo para el
 % problema 1, esto es, su práctica tendrá que incluir una llamada a la
-% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% función convconm y posteriormente se tendrá que mostrar (mediante el
 % Publish) la gráfica tanto de las señales invlucradas como el resultado de
-% la convolución, y en esta última gráficara su resultado analitico, se
-% tendrá que incluir el resultado analitico.
+% la convolución, y en esta última graficará su resultado analítico, se
+% tendrá que incluir el resultado analítico.
 %
 % Gráficas involucradas
 %
@@ -408,13 +408,13 @@ convconm1(x,h)
 %
 %% Ejercicio 2
 %
-% Para el PR04 reporte la grafica de la simulación númerica de la
-% convolución y compare con el resultado análitico que obtuvo para el
+% Para el PR04 reporte la gráfica de la simulación númerica de la
+% convolución y compare con el resultado analítico que obtuvo para el
 % problema 3, esto es, su práctica tendrá que incluir una llamada a la
-% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% función convconm y posteriormente se tendrá que mostrar (mediante el
 % Publish) la gráfica tanto de las señales invlucradas como el resultado de
-% la convolución, y en esta última gráficara su resultado analitico, se
-% tendrá que incluir el resultado analitico.
+% la convolución, y en esta última graficará su resultado analítico, se
+% tendrá que incluir el resultado analítico.
 %
 % Gráficas involucradas
 %
@@ -432,15 +432,15 @@ convconm2(x,h)
 %
 %% Ejercicio 3
 %
-% Para el PR06 reporte la grafica de la simulación númerica de la
-% correalción y compare con el resultado análitico que obtuvo para el
+% Para el PR06 reporte la gráfica de la simulación númerica de la
+% correalción y compare con el resultado analítico que obtuvo para el
 % problema e), esto es, su práctica tendrá que incluir una llamada a la
-% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% función convconm y posteriormente se tendrá que mostrar (mediante el
 % Publish) la gráfica tanto de las señales involucradas como el resultado
-% de su correlación, y en esta última graficara su resultado analitico, se
-% tendrá que incluir el resultado analitico.
+% de su correlación, y en esta última graficará su resultado analítico, se
+% tendrá que incluir el resultado analítico.
 %
-% Graficas involucradas
+% Gráficas involucradas
 %
 % <<Conv_ej3.png>>
 %
@@ -456,15 +456,15 @@ convconm3(x,h)
 %
 %% Ejercicio 4
 %
-% Para el PR06 reporte la grafica de la simulación númerica de la
-% correalción y compare con el resultado análitico que obtuvo para el
+% Para el PR06 reporte la gráfica de la simulación númerica de la
+% correalción y compare con el resultado analítico que obtuvo para el
 % problema f), esto es, su práctica tendrá que incluir una llamada a la
-% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% función convconm y posteriormente se tendrá que mostrar (mediante el
 % Publish) la gráfica tanto de las señales involucradas como el resultado
-% de su correlación, y en esta última graficara su resultado analitico, se
-% tendrá que incluir el resultado analitico.
+% de su correlación, y en esta última graficará su resultado analítico, se
+% tendrá que incluir el resultado analítico.
 %
-% Graficas involucradas
+% Gráficas involucradas
 %
 % <<Conv_ej4.png>>
 %
