@@ -1,0 +1,482 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Practica 4 Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-05-07"><meta name="DC.source" content="Practica_04.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Practica 4 Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</h1><!--introduction--><p>Materia: <i>Se&ntilde;ales y Sistemas</i></p><p>Profesor: <i>Dr. Rafael Mart&iacute;nez Mart&iacute;nez</i></p><p>Grupo: <i>2TV1</i></p><p>Alumnos:</p><p><i>Panama Segura Sayuri</i></p><p><i>Perez Escobar Hiram Etzael</i></p><p><i>Robles Filio Eduardo</i></p><p><i>Rodriguez Moreno Luis Manuel</i></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Objetivos</a></li><li><a href="#2">Introducci&oacute;n</a></li><li><a href="#16">Ejercicio 1</a></li><li><a href="#17">Ejercicio 2</a></li><li><a href="#18">Ejercicio 3</a></li><li><a href="#19">Ejercicio 4</a></li></ul></div><h2 id="1">Objetivos</h2><div><ul><li>Conocer m&eacute;todos b&aacute;sicos de integraci&oacute;n num&eacute;rica.</li><li>Manipulaci&oacute;n de instrucciones en MATLAB.</li><li>Simular convoluciones y correlaciones de se&ntilde;ales continuas.</li></ul></div><h2 id="2">Introducci&oacute;n</h2><p>De acuerdo con el teorema fundamental del c&aacute;lculo, si una funcion <img src="Practica_04_eq09478123530129115431.png" alt="$f(t)$"> es integrable y <img src="Practica_04_eq05911089245303613486.png" alt="$\frac{d}{dt}F(t)=f(t)$"> entonces.</p><p><img src="Practica_04_eq11907651742851339835.png" alt="$\int_{a}^{b}f(t)\;dt=F(b)-F(a)$"></p><p>Con esto encontramos el valor num&eacute;rico asociado a el &aacute;rea limitada por:</p><div><ul><li>La funcion <img src="Practica_04_eq09478123530129115431.png" alt="$f(t)$"></li><li>La recta (r1) entre los puntos <img src="Practica_04_eq16718929732770097741.png" alt="$(a,0) , (a,f(a))$"></li><li>La recta (r2) entre los puntos <img src="Practica_04_eq05433070650642011812.png" alt="$(b,0) , (b,f(b))$"></li><li>La recta (r3) entre los puntos <img src="Practica_04_eq05709661368352793545.png" alt="$(a,0) , (b,0)$"></li></ul></div><p>Ovservese la siguiente gr&aacute;fica donde:</p><div><ul><li><img src="Practica_04_eq01718718419252625958.png" alt="$f(t)=e^{-t}$"></li><li><img src="Practica_04_eq05932757272887015819.png" alt="$a=-1$"></li><li><img src="Practica_04_eq17667053596240785930.png" alt="$b=1$"></li></ul></div><p><img vspace="5" hspace="5" src="Figura_v1.jpg" alt=""> </p><p>El valor de el area sombreada ser&aacute;:</p><p><img src="Practica_04_eq12081923604143965007.png" alt="$\int_{-1}^{1}e^{-t}\;dt=F(1)-F(-1)$"></p><p>En ocaciones encontrar <img src="Practica_04_eq12023782566688451389.png" alt="$F(t)$"> es dificil o imposible. Esto lo podemos ver claramente con el siguiente ejemplo:</p><p><img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$"></p><p><img vspace="5" hspace="5" src="Figura_v1_2.jpg" alt=""> </p><p>Si quisieramos encontrar el &aacute;rea bajo la curva de <img src="Practica_04_eq09478123530129115431.png" alt="$f(t)$"> cuando <img src="Practica_04_eq06935614922302581975.png" alt="$(-1 \leq t \leq1)$"> mediante <img src="Practica_04_eq09464773667026604851.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=F(1)-F(-1)$"> notamos que no podemos obtener <img src="Practica_04_eq12023782566688451389.png" alt="$F(t)$">, pero esto no quiere decir que sea imposible aproximar un valor para ello.</p><p>Es aqui donde es relevante hablar de los M&eacute;todos de Integraci&oacute;n Num&eacute;rica que analizaremos a continuacion.</p><p><b>Formulas Cerradas de Newton-Cotes</b></p><p>Estas formulas ayudan a resolver integrales como la que hemos propuesto anteriormente bajo el siguiente esquema:</p><p>Se piensa que <img src="Practica_04_eq09478123530129115431.png" alt="$f(t)$"> es derivable un determinado numero de veces y adem&aacute;s la derivada es continua, de acuerdo a la Interpolaci&oacute;n Polin&oacute;mica de Lagrange sabemos que la forma de una funci&oacute;n puede aproximarse por un polinomio de grado n (el grado depender&aacute; del n&uacute;mero de puntos donde el polinomio y la funcion coincidan) mas un t&eacute;rmino de error.</p><p><img src="Practica_04_eq14903684121971293775.png" alt="$f(x)=P(x)+\frac{f^{n+1}(E(x))}{(n+1)!}(x-x_0)(x-x_1)...(x-x_n)$"></p><p>con <img src="Practica_04_eq09822006666752688188.png" alt="$(a \leq x \leq b)$"> y <img src="Practica_04_eq08690726375283774051.png" alt="$(a \leq x_i \leq b)$"></p><p>La idea es integrar un polinomio que se parece a <img src="Practica_04_eq09478123530129115431.png" alt="$f(t)$">, as&iacute; la integral resulta m&aacute;s f&aacute;cil por la versatilidad de los polinomios para este fin.</p><p>De acuerdo a la siguiente imagen</p><p><img vspace="5" hspace="5" src="Figura_v2_2.jpg" alt=""> </p><p>Tenemos que:</p><div><ul><li><img src="Practica_04_eq11092990650032508793.png" alt="$x_0=a$"></li><li><img src="Practica_04_eq00347673354665525867.png" alt="$x_n=b$"></li><li><img src="Practica_04_eq14663764134541110566.png" alt="$h=\frac{b-a}{n}$"></li><li><img src="Practica_04_eq16911297530188447216.png" alt="$x_i=x_0+ih$"> con <img src="Practica_04_eq14242140163844623181.png" alt="$i=0,1,2,...,n$"></li></ul></div><p><b>Regla del Trapecio (<img src="Practica_04_eq16789844994363566909.png" alt="$n=1$">)</b></p><p><img src="Practica_04_eq07980221878121725601.png" alt="$\int_{x_0}^{x_1}f(t)\;dt=\frac{h}{2}[f(x_0)+f(x_1)]-\frac{h^3}{12}[\frac{d^2}{dt^2}f(E)]$"> donde <img src="Practica_04_eq11062693666372520687.png" alt="$(x_0 \leq E \leq x_1)$"></p><p>Esta formula de aproximacion tiene algo que se le conoce como <i>Grado de Precisi&oacute;n</i> que se refiere al polinomio de mayor grado de tal manera que las formulas de Newton-Cotes son exactas.</p><p>Para nuestro ejemplo propuesto <img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$">  mediante la regla del trapecio se realiza la aproximaci&oacute;n de la siguiente forma:</p><div><ul><li><img src="Practica_04_eq08917388677015107225.png" alt="$x_0=-1$"></li><li><img src="Practica_04_eq15128137070370003431.png" alt="$x_1=1$"></li><li><img src="Practica_04_eq14961829592028332210.png" alt="$h=2$"></li><li><img src="Practica_04_eq09697762437188708327.png" alt="$f(x_0)=e^{-1}$"></li><li><img src="Practica_04_eq08826276584729299835.png" alt="$f(x_1)=e^{-1}$"></li><li><img src="Practica_04_eq07944193246906499543.png" alt="$\frac{d^2}{dt^2}f(t)=4t^2e^{-t^2}-2e^{-t^2}$"></li></ul></div><p>Luego <img src="Practica_04_eq11829988845019315453.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=\frac{2}{2}[e^{-1}+e^{-1}]-\frac{8}{12}[4E^2e^{-E^2}-2e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p>Asi <img src="Practica_04_eq04050102654128668668.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 0.735758 -\frac{2}{3}[4E^2e^{-E^2}-2e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p><b>Regla de Simpson (<img src="Practica_04_eq04968715417579708634.png" alt="$n=2$">)</b></p><p><img src="Practica_04_eq15118394983210690670.png" alt="$\int_{x_0}^{x_2}f(t)\;dt=\frac{h}{3}[f(x_0)+4f(x_1)+f(x_2)]-\frac{h^5}{90}[\frac{d^4}{dt^4}f(E)]$"> donde <img src="Practica_04_eq17818576119042143310.png" alt="$(x_0 \leq E \leq x_2)$"></p><p>Para nuestro ejemplo propuesto <img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$">  mediante la regla de Simpson se realiza la aproximaci&oacute;n de la siguiente forma:</p><div><ul><li><img src="Practica_04_eq08917388677015107225.png" alt="$x_0=-1$"></li><li><img src="Practica_04_eq03920191977574212333.png" alt="$x_1=0$"></li><li><img src="Practica_04_eq03280440040931729739.png" alt="$x_2=1$"></li><li><img src="Practica_04_eq17348141878797291424.png" alt="$h=1$"></li><li><img src="Practica_04_eq09697762437188708327.png" alt="$f(x_0)=e^{-1}$"></li><li><img src="Practica_04_eq03903411771339326714.png" alt="$f(x_1)=1$"></li><li><img src="Practica_04_eq17030685986335563265.png" alt="$f(x_2)=e^{-1}$"></li><li><img src="Practica_04_eq03342145705828199378.png" alt="$\frac{d^4}{dt^4}f(t)=16t^4e^{-t^2}-48t^2e^{-t^2}+12e^{-t^2}$"></li></ul></div><p>Luego <img src="Practica_04_eq00443397124657523095.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=\frac{1}{3}[e^{-1}+4+e^{-1}]-\frac{1}{90}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p>Asi  <img src="Practica_04_eq08945841787559553905.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 1.578586 -\frac{1}{90}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p><b>Regla de los tres octavos de Simpson (<img src="Practica_04_eq00013378311338420650.png" alt="$n=3$">)</b></p><p><img src="Practica_04_eq04324641399429963891.png" alt="$\int_{x_0}^{x_3}f(t)\;dt=\frac{3}{8}h[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]-\frac{3}{80}h^5[\frac{d^4}{dt^4}f(E)]$"> donde <img src="Practica_04_eq15384356055438578153.png" alt="$(x_0 \leq E \leq x_3)$"></p><p>Para nuestro ejemplo propuesto <img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$">  mediante la regla de los tres octavos de Simpson se realiza la aproximaci&oacute;n de la siguiente forma:</p><div><ul><li><img src="Practica_04_eq08917388677015107225.png" alt="$x_0=-1$"></li><li><img src="Practica_04_eq09838049081712038719.png" alt="$x_1=\frac{1}{3}$"></li><li><img src="Practica_04_eq04777624703589386999.png" alt="$x_2=\frac{1}{3}$"></li><li><img src="Practica_04_eq09317654849310675064.png" alt="$x_3=1$"></li><li><img src="Practica_04_eq16833861074873516216.png" alt="$h=\frac{2}{3}$"></li><li><img src="Practica_04_eq09697762437188708327.png" alt="$f(x_0)=e^{-1}$"></li><li><img src="Practica_04_eq17119492925614019287.png" alt="$f(x_1)=e^{-\frac{1}{9}}$"></li><li><img src="Practica_04_eq16640720781486601288.png" alt="$f(x_2)=e^{-\frac{1}{9}}$"></li><li><img src="Practica_04_eq06644444473030953998.png" alt="$f(x_3)=e^{-1}$"></li><li><img src="Practica_04_eq03342145705828199378.png" alt="$\frac{d^4}{dt^4}f(t)=16t^4e^{-t^2}-48t^2e^{-t^2}+12e^{-t^2}$"></li></ul></div><p>Luego <img src="Practica_04_eq15785218964325519849.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=\frac{1}{4}[e^{-1}+3e^{-\frac{1}{9}}+3e^{-\frac{1}{9}}+e^{-1}]-\frac{2}{405}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p>Asi <img src="Practica_04_eq07439407496025548328.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 1.526198 -\frac{2}{405}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p><b>Regla Compuesta del Trapecio</b></p><p>La regla del trapecio compuesta surge de la idea de dividir el intervalo <img src="Practica_04_eq13003530951257114622.png" alt="$[a,b]$"> en subintervalos de manera que se formen trapecios con altura <img src="Practica_04_eq08062630503172331818.png" alt="$h$"> cada vez m&aacute;s peque&ntilde;a, as&iacute; la aproximaci&oacute;n del &aacute;rea bajo la curva de una funci&oacute;n <img src="Practica_04_eq09478123530129115431.png" alt="$f(t)$"> se parece cada vez m&aacute;s a la ideal a su vez que el error disminuye, pero no desaparece.</p><p>Esta idea nos arroja la siguiente formula</p><p><img src="Practica_04_eq09463355150651797333.png" alt="$\int_{a}^{b}f(t)\;dt=\frac{h}{2}[f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)]-\frac{b-a}{12}h^2[\frac{d^2}{dt^2}f(E)]$"> donde <img src="Practica_04_eq00822649142477496194.png" alt="$(a \leq E \leq b)$"></p><p>Para nuestro ejemplo propuesto <img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$">  mediante la regla compuesta del trapecio se realiza la aproximaci&oacute;n de la siguiente forma:</p><div><ul><li><img src="Practica_04_eq06713379182124035157.png" alt="$n=10$"></li><li><img src="Practica_04_eq16251747483500871166.png" alt="$h=0.2$"></li><li><img src="Practica_04_eq10722887046656268147.png" alt="$x_0=-1 \qquad f(x_0)=e^{-1}$"></li><li><img src="Practica_04_eq01484581037879943972.png" alt="$x_1=-0.8 \qquad f(x_1)=e^{-0.64}$"></li><li><img src="Practica_04_eq17475273406048944799.png" alt="$x_2=-0.6 \qquad f(x_2)=e^{-0.36}$"></li><li><img src="Practica_04_eq09610825609327627616.png" alt="$x_3=-0.4 \qquad f(x_3)=e^{-0.16}$"></li><li><img src="Practica_04_eq12696674408154263738.png" alt="$x_4=-0.2 \qquad f(x_4)=e^{-0.04}$"></li><li><img src="Practica_04_eq12023662619065769208.png" alt="$x_5=0 \qquad f(x_5)=1$"></li><li><img src="Practica_04_eq15510880528061144451.png" alt="$x_6=0.2 \qquad f(x_6)=e^{-0.04}$"></li><li><img src="Practica_04_eq09479218742135473520.png" alt="$x_7=0.4 \qquad f(x_7)=e^{-0.16}$"></li><li><img src="Practica_04_eq12067496393868304996.png" alt="$x_8=0.6 \qquad f(x_8)=e^{-0.36}$"></li><li><img src="Practica_04_eq00930154372149009614.png" alt="$x_9=0.8 \qquad f(x_9)=e^{-0.64}$"></li><li><img src="Practica_04_eq02064149510968976102.png" alt="$x_10=1 \qquad f(x_10)=e^{-1}$"></li><li><img src="Practica_04_eq07944193246906499543.png" alt="$\frac{d^2}{dt^2}f(t)=4t^2e^{-t^2}-2e^{-t^2}$"></li></ul></div><p>Luego <img src="Practica_04_eq06156533577602983504.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=\frac{1}{10}[e^{-1}+2\sum_{j=1}^{n-1}e^{-x_j^2}+e^{-1}]-\frac{1}{150}[4E^2e^{-E^2}-2e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p>Asi <img src="Practica_04_eq12826611433419085022.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 1.488736 -\frac{1}{150}[4E^2e^{-E^2}-2e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p><b>Regla Compuesta de Simpson</b></p><p>A diferencia de la <i>Regla Compuesta del Trapecio</i> donde se utilizan polinomios de grado 1, en la <i>Regla Compuesta de Simpson</i> se utilizan polinomios de grado 2, es decir, par&aacute;bolas comprendidas en 2 subintervalos, esto nos quiere decir que necesariamente el intervalo <img src="Practica_04_eq13003530951257114622.png" alt="$[a,b]$"> debe ser segmentado en <i>partes pares iguales</i>.</p><p>Con esta idea en mente, la formula ser&iacute;a la siguiente:</p><p><img src="Practica_04_eq15193368885123340774.png" alt="$\int_{a}^{b}f(t)\;dt=\frac{h}{3}[f(a)+2\sum_{j=1}^{\frac{n}{2}-1}f(x_{2j})+4\sum_{j=1}^{\frac{n}{2}}f(x_{2j-1})+f(b)]-\frac{b-a}{180}h^4[\frac{d^4}{dt^4}f(E)]$"> donde <img src="Practica_04_eq00822649142477496194.png" alt="$(a \leq E \leq b)$"></p><p>Para nuestro ejemplo propuesto <img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$">  mediante la regla compuesta de Simpson se realiza la aproximaci&oacute;n de la siguiente forma:</p><div><ul><li><img src="Practica_04_eq06713379182124035157.png" alt="$n=10$"></li><li><img src="Practica_04_eq16251747483500871166.png" alt="$h=0.2$"></li><li><img src="Practica_04_eq10722887046656268147.png" alt="$x_0=-1 \qquad f(x_0)=e^{-1}$"></li><li><img src="Practica_04_eq01484581037879943972.png" alt="$x_1=-0.8 \qquad f(x_1)=e^{-0.64}$"></li><li><img src="Practica_04_eq17475273406048944799.png" alt="$x_2=-0.6 \qquad f(x_2)=e^{-0.36}$"></li><li><img src="Practica_04_eq09610825609327627616.png" alt="$x_3=-0.4 \qquad f(x_3)=e^{-0.16}$"></li><li><img src="Practica_04_eq12696674408154263738.png" alt="$x_4=-0.2 \qquad f(x_4)=e^{-0.04}$"></li><li><img src="Practica_04_eq12023662619065769208.png" alt="$x_5=0 \qquad f(x_5)=1$"></li><li><img src="Practica_04_eq15510880528061144451.png" alt="$x_6=0.2 \qquad f(x_6)=e^{-0.04}$"></li><li><img src="Practica_04_eq09479218742135473520.png" alt="$x_7=0.4 \qquad f(x_7)=e^{-0.16}$"></li><li><img src="Practica_04_eq12067496393868304996.png" alt="$x_8=0.6 \qquad f(x_8)=e^{-0.36}$"></li><li><img src="Practica_04_eq00930154372149009614.png" alt="$x_9=0.8 \qquad f(x_9)=e^{-0.64}$"></li><li><img src="Practica_04_eq02064149510968976102.png" alt="$x_10=1 \qquad f(x_10)=e^{-1}$"></li><li><img src="Practica_04_eq03342145705828199378.png" alt="$\frac{d^4}{dt^4}f(t)=16t^4e^{-t^2}-48t^2e^{-t^2}+12e^{-t^2}$"></li></ul></div><p>Luego <img src="Practica_04_eq10491321608200316847.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=\frac{0.2}{3}[e^{-1}+2\sum_{j=1}^{\frac{n}{2}-1}e^{-(x_{2j})^2})+4\sum_{j=1}^{\frac{n}{2}}e^{-(x_{2j-1})^2}+e^{-1}]-\frac{2}{180}(0.2)^4[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p>Asi <img src="Practica_04_eq13381713975010254765.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 1.493674 -\frac{2}{180}(0.2)^4[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$"> donde <img src="Practica_04_eq10356000844730540157.png" alt="$(-1 \leq E \leq 1)$"></p><p><b>Cuadratura Gaussiana</b></p><p>Lo que se pretende en este metodo es realizar la <img src="Practica_04_eq12092421472784442613.png" alt="$\int_{a}^{b}f(t)\;dt$"> como una suma de la evaluaci&oacute;n de la funci&oacute;n en ciertos puntos multiplicada por ciertas constantes, es decir, como <img src="Practica_04_eq04975844626126113972.png" alt="$\sum_{i=1}^{n}C_if(x_i)$">.</p><p>Para esto se utilizan los polinomios de Legendre, que se caracterizan por tener propiedades muy &uacute;tiles en el intervalo <img src="Practica_04_eq01893875229900969577.png" alt="$[-1,1]$"></p><p>Para fines pr&aacute;cticos nos fijamos en lo siguiente:</p><div><ul><li><img src="Practica_04_eq00441311847593852498.png" alt="$P(x)$"> es el polinomio de Legendre de grado <img src="Practica_04_eq08984225997457563733.png" alt="$n$"></li><li><img src="Practica_04_eq16800090276734239189.png" alt="$x_1,x_2,...,x_n$"> <img src="Practica_04_eq08984225997457563733.png" alt="$n$"> raices del polinomio</li><li><img src="Practica_04_eq08387187145392811516.png" alt="$C_i=\int_{-1}^{1}\prod_{j=1}^{n}\frac{x-x_j}{x_i-x_j}dx$"></li></ul></div><p><img vspace="5" hspace="5" src="PoliLeg.jpg" alt=""> </p><p><img vspace="5" hspace="5" src="GrafPoliLeg.jpg" alt=""> </p><p>Luego, la forma en la que se utiliza la Cuadratura Gaussiana de una forma m&aacute;s versatil es mediante tablas</p><p><img vspace="5" hspace="5" src="TablaCG.jpg" alt=""> </p><p>Cabe se&ntilde;alar que este m&eacute;todo de cuadratura gaussiana se ocupa generalmente en el intervalo <img src="Practica_04_eq01893875229900969577.png" alt="$[-1,1]$">, y cuando se requiere realizar una integraci&oacute;n en otro intervalo, es necesario hacer el siguiente ajuste:</p><p><img src="Practica_04_eq17057855974718960806.png" alt="$\int_{a}^{b}f(t)\;dt=\int_{-1}^{1}f(\frac{(b-a)t+a+b}{2})\frac{b-a}{2}\;dt$"></p><p>Para nuestro ejemplo propuesto <img src="Practica_04_eq16793734853139699938.png" alt="$f(t)=e^{-t^2}$">  mediante Cuadratura Gaussiana se realiza la aproximaci&oacute;n de la siguiente forma:</p><p>Con <img src="Practica_04_eq12153842067696815630.png" alt="$(n=2)$"> y apoyandonos en la tabla de raices y coeficientes</p><p><img src="Practica_04_eq00410996372385946035.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=e^{-(0.577350269189626)^2}+e^{-(-0.577350269189626)^2}$"> <img src="Practica_04_eq15905592306531111952.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 1.433062$"></p><p>Ahora con <img src="Practica_04_eq12649104677440522058.png" alt="$(n=3)$"></p><p><img src="Practica_04_eq09875935557138808842.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt=0.555555555555556e^{-(-0.774596669241483)^2}+0.888888888888889e^{-(0.0)^2}+0.555555555555556e^{-(0.774596669241483)^2}$"></p><p><img src="Practica_04_eq12901242414251031304.png" alt="$\int_{-1}^{1}e^{-t^2}\;dt= 1.498679$"></p><h2 id="16">Ejercicio 1</h2><p>Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 1, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales invlucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>Gr&aacute;ficas involucradas</p><p><img vspace="5" hspace="5" src="Conv_ej1.png" alt=""> </p><p>Resultado anal&iacute;tico</p><p><img vspace="5" hspace="5" src="Ejercicio1.jpg" alt=""> </p><p>Llamada a la funci&oacute;n</p><pre class="codeinput">x= @(t) (-t+1).*(t&gt;=0 &amp;t&lt;1) + (t-1).*(t&gt;=1  &amp; t&lt;2);
+h= @(t) (t&gt;=0 &amp; t&lt;1);
+convconm1(x,h)
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="Practica_04_01.png" alt=""> <h2 id="17">Ejercicio 2</h2><p>Para el PR04 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la convoluci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema 3, esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales invlucradas como el resultado de la convoluci&oacute;n, y en esta &uacute;ltima gr&aacute;ficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>Gr&aacute;ficas involucradas</p><p><img vspace="5" hspace="5" src="Conv_ej2.png" alt=""> </p><p>Resultado anal&iacute;tico</p><p><img vspace="5" hspace="5" src="Ejercicio2.jpg" alt=""> </p><p>Lamada a funci&oacute;n</p><pre class="codeinput">x= @(t) t.*(t&gt;=0 &amp;t&lt;1) + 1.*(t&gt;=1  &amp; t&lt;2);
+h= @(t) (t&gt;=1 &amp; t&lt;3);
+convconm2(x,h)
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="Practica_04_02.png" alt=""> <h2 id="18">Ejercicio 3</h2><p>Para el PR06 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema e), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>Graficas involucradas</p><p><img vspace="5" hspace="5" src="Conv_ej3.png" alt=""> </p><p>Resultado anal&iacute;tico</p><p><img vspace="5" hspace="5" src="Ejercicio3.jpg" alt=""> </p><p>Lamada a funci&oacute;n</p><pre class="codeinput">x= @(t) (t&gt;=0 &amp;t&lt;3) - (t&gt;=3  &amp; t&lt;4);
+h= @(t) -(t&gt;=-4 &amp;t&lt;-3) + (t&gt;=-3  &amp; t&lt;0);
+convconm3(x,h)
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="Practica_04_03.png" alt=""> <h2 id="19">Ejercicio 4</h2><p>Para el PR06 reporte la grafica de la simulaci&oacute;n n&uacute;merica de la correalci&oacute;n y compare con el resultado an&aacute;litico que obtuvo para el problema f), esto es, su pr&aacute;ctica tendr&aacute; que incluir una llamada a la funci&oacute;nn convconm y posteriormente se tendr&aacute; que mostrar (mediante el Publish) la gr&aacute;fica tanto de las se&ntilde;ales involucradas como el resultado de su correlaci&oacute;n, y en esta &uacute;ltima graficara su resultado analitico, se tendr&aacute; que incluir el resultado analitico.</p><p>Graficas involucradas</p><p><img vspace="5" hspace="5" src="Conv_ej4.png" alt=""> </p><p>Resultado anal&iacute;tico</p><p><img vspace="5" hspace="5" src="Ejercicio4.jpg" alt=""> </p><p>Llamada a Funci&oacute;n</p><pre class="codeinput">x= @(t) (t&gt;=0 &amp;t&lt;2) - (t&gt;=2  &amp; t&lt;4) ;
+h= @(t) -1.*((t&gt;=-4 &amp; t&lt;-3) - (t&gt;=-3 &amp; t&lt;0));
+convconm(x,h)
+</pre><img vspace="5" hspace="5" src="Practica_04_04.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Practica 4 Convolución y Correlación de señales en tiempo continuo
+%
+% Materia: _Señales y Sistemas_
+%
+% Profesor: _Dr. Rafael Martínez Martínez_
+%
+% Grupo: _2TV1_
+%
+% Alumnos:
+% 
+% _Panama Segura Sayuri_
+%
+% _Perez Escobar Hiram Etzael_
+%
+% _Robles Filio Eduardo_ 
+%
+% _Rodriguez Moreno Luis Manuel_
+%
+%% Objetivos
+% 
+% * Conocer métodos básicos de integración numérica.
+% * Manipulación de instrucciones en MATLAB.
+% * Simular convoluciones y correlaciones de señales continuas.
+%
+%% Introducción
+%
+% De acuerdo con el teorema fundamental del cálculo, si una funcion $f(t)$
+% es integrable y $\frac{d}{dt}F(t)=f(t)$ entonces.
+% 
+% $\int_{a}^{b}f(t)\;dt=F(b)-F(a)$
+%
+% Con esto encontramos el valor numérico asociado a el área limitada por:
+% 
+% * La funcion $f(t)$
+% * La recta (r1) entre los puntos $(a,0) , (a,f(a))$
+% * La recta (r2) entre los puntos $(b,0) , (b,f(b))$
+% * La recta (r3) entre los puntos $(a,0) , (b,0)$
+% 
+% Ovservese la siguiente gráfica donde:
+% 
+% * $f(t)=e^{-t}$
+% * $a=-1$
+% * $b=1$
+%
+% <<Figura_v1.jpg>>
+%
+% El valor de el area sombreada será:
+%
+% $\int_{-1}^{1}e^{-t}\;dt=F(1)-F(-1)$
+%
+% En ocaciones encontrar $F(t)$ es dificil o imposible.
+% Esto lo podemos ver claramente con el siguiente ejemplo:
+% 
+% $f(t)=e^{-t^2}$
+%
+% <<Figura_v1_2.jpg>>
+%
+% Si quisieramos encontrar el área bajo la curva de $f(t)$ cuando
+% $(-1 \leq t \leq1)$ mediante $\int_{-1}^{1}e^{-t^2}\;dt=F(1)-F(-1)$
+% notamos que no podemos obtener $F(t)$, pero esto no quiere decir que sea
+% imposible aproximar un valor para ello.
+% 
+% Es aqui donde es relevante hablar de los Métodos de Integración Numérica
+% que analizaremos a continuacion.
+%%
+% *Formulas Cerradas de Newton-Cotes* 
+% 
+% Estas formulas ayudan a resolver integrales como la que hemos propuesto
+% anteriormente bajo el siguiente esquema:
+%
+% Se piensa que $f(t)$ es derivable un determinado numero de veces y además
+% la derivada es continua, de acuerdo a la Interpolación Polinómica de
+% Lagrange sabemos que la forma de una función puede aproximarse por un
+% polinomio de grado n (el grado dependerá del número de puntos donde el
+% polinomio y la funcion coincidan) mas un término de error.
+%
+% $f(x)=P(x)+\frac{f^{n+1}(E(x))}{(n+1)!}(x-x_0)(x-x_1)...(x-x_n)$
+%
+% con $(a \leq x \leq b)$ y $(a \leq x_i \leq b)$
+%
+% La idea es integrar un polinomio que se parece a $f(t)$, así la integral
+% resulta más fácil por la versatilidad de los polinomios para este fin.
+% 
+% De acuerdo a la siguiente imagen
+%
+% <<Figura_v2_2.jpg>>
+%
+% Tenemos que:
+%
+% * $x_0=a$
+% * $x_n=b$
+% * $h=\frac{b-a}{n}$
+% * $x_i=x_0+ih$ con $i=0,1,2,...,n$
+%%
+% *Regla del Trapecio ($n=1$)*
+% 
+% $\int_{x_0}^{x_1}f(t)\;dt=\frac{h}{2}[f(x_0)+f(x_1)]-\frac{h^3}{12}[\frac{d^2}{dt^2}f(E)]$
+% donde $(x_0 \leq E \leq x_1)$
+% 
+% Esta formula de aproximacion tiene algo que se le conoce como _Grado de
+% Precisión_ que se refiere al polinomio de mayor grado de tal manera que
+% las formulas de Newton-Cotes son exactas.
+%%
+% Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante la regla del
+% trapecio se realiza la aproximación de la siguiente forma:
+%
+% * $x_0=-1$ 
+% * $x_1=1$ 
+% * $h=2$ 
+% * $f(x_0)=e^{-1}$ 
+% * $f(x_1)=e^{-1}$
+% * $\frac{d^2}{dt^2}f(t)=4t^2e^{-t^2}-2e^{-t^2}$
+%
+% Luego $\int_{-1}^{1}e^{-t^2}\;dt=\frac{2}{2}[e^{-1}+e^{-1}]-\frac{8}{12}[4E^2e^{-E^2}-2e^{-E^2}]$
+% donde $(-1 \leq E \leq 1)$
+%
+% Asi $\int_{-1}^{1}e^{-t^2}\;dt= 0.735758
+% -\frac{2}{3}[4E^2e^{-E^2}-2e^{-E^2}]$ donde $(-1 \leq E \leq 1)$
+% 
+%% 
+% *Regla de Simpson ($n=2$)*
+% 
+% $\int_{x_0}^{x_2}f(t)\;dt=\frac{h}{3}[f(x_0)+4f(x_1)+f(x_2)]-\frac{h^5}{90}[\frac{d^4}{dt^4}f(E)]$
+% donde $(x_0 \leq E \leq x_2)$
+%
+%%
+% Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante la regla de
+% Simpson se realiza la aproximación de la siguiente forma: 
+%
+% * $x_0=-1$
+% * $x_1=0$
+% * $x_2=1$ 
+% * $h=1$ 
+% * $f(x_0)=e^{-1}$ 
+% * $f(x_1)=1$
+% * $f(x_2)=e^{-1}$
+% * $\frac{d^4}{dt^4}f(t)=16t^4e^{-t^2}-48t^2e^{-t^2}+12e^{-t^2}$
+% 
+% Luego $\int_{-1}^{1}e^{-t^2}\;dt=\frac{1}{3}[e^{-1}+4+e^{-1}]-\frac{1}{90}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$
+% donde $(-1 \leq E \leq 1)$
+% 
+% Asi  $\int_{-1}^{1}e^{-t^2}\;dt= 1.578586
+% -\frac{1}{90}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$ donde $(-1 \leq E \leq 1)$
+%
+%% 
+% *Regla de los tres octavos de Simpson ($n=3$)*
+% 
+% $\int_{x_0}^{x_3}f(t)\;dt=\frac{3}{8}h[f(x_0)+3f(x_1)+3f(x_2)+f(x_3)]-\frac{3}{80}h^5[\frac{d^4}{dt^4}f(E)]$
+% donde $(x_0 \leq E \leq x_3)$
+%
+%%
+% Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante la regla de los
+% tres octavos de Simpson se realiza la aproximación de la siguiente forma:
+%
+% * $x_0=-1$
+% * $x_1=\frac{1}{3}$
+% * $x_2=\frac{1}{3}$
+% * $x_3=1$ 
+% * $h=\frac{2}{3}$
+% * $f(x_0)=e^{-1}$ 
+% * $f(x_1)=e^{-\frac{1}{9}}$
+% * $f(x_2)=e^{-\frac{1}{9}}$
+% * $f(x_3)=e^{-1}$
+% * $\frac{d^4}{dt^4}f(t)=16t^4e^{-t^2}-48t^2e^{-t^2}+12e^{-t^2}$
+%
+% Luego $\int_{-1}^{1}e^{-t^2}\;dt=\frac{1}{4}[e^{-1}+3e^{-\frac{1}{9}}+3e^{-\frac{1}{9}}+e^{-1}]-\frac{2}{405}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$
+% donde $(-1 \leq E \leq 1)$
+% 
+% Asi $\int_{-1}^{1}e^{-t^2}\;dt= 1.526198
+% -\frac{2}{405}[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$ donde $(-1 \leq E \leq 1)$
+%
+%% 
+% *Regla Compuesta del Trapecio*
+%
+% La regla del trapecio compuesta surge de la idea de dividir el intervalo
+% $[a,b]$ en subintervalos de manera que se formen trapecios con altura $h$
+% cada vez más pequeña, así la aproximación del área bajo la
+% curva de una función $f(t)$ se parece cada vez más a la ideal a su vez que el
+% error disminuye, pero no desaparece.
+% 
+% Esta idea nos arroja la siguiente formula
+%
+% $\int_{a}^{b}f(t)\;dt=\frac{h}{2}[f(a)+2\sum_{j=1}^{n-1}f(x_j)+f(b)]-\frac{b-a}{12}h^2[\frac{d^2}{dt^2}f(E)]$
+% donde $(a \leq E \leq b)$
+%
+%%
+% Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante la regla compuesta del
+% trapecio se realiza la aproximación de la siguiente forma:
+%
+% * $n=10$
+% * $h=0.2$
+% * $x_0=-1 \qquad f(x_0)=e^{-1}$
+% * $x_1=-0.8 \qquad f(x_1)=e^{-0.64}$
+% * $x_2=-0.6 \qquad f(x_2)=e^{-0.36}$
+% * $x_3=-0.4 \qquad f(x_3)=e^{-0.16}$
+% * $x_4=-0.2 \qquad f(x_4)=e^{-0.04}$
+% * $x_5=0 \qquad f(x_5)=1$
+% * $x_6=0.2 \qquad f(x_6)=e^{-0.04}$
+% * $x_7=0.4 \qquad f(x_7)=e^{-0.16}$
+% * $x_8=0.6 \qquad f(x_8)=e^{-0.36}$
+% * $x_9=0.8 \qquad f(x_9)=e^{-0.64}$
+% * $x_10=1 \qquad f(x_10)=e^{-1}$
+% * $\frac{d^2}{dt^2}f(t)=4t^2e^{-t^2}-2e^{-t^2}$
+% 
+% Luego 
+% $\int_{-1}^{1}e^{-t^2}\;dt=\frac{1}{10}[e^{-1}+2\sum_{j=1}^{n-1}e^{-x_j^2}+e^{-1}]-\frac{1}{150}[4E^2e^{-E^2}-2e^{-E^2}]$
+% donde $(-1 \leq E \leq 1)$
+%
+% Asi $\int_{-1}^{1}e^{-t^2}\;dt= 1.488736
+% -\frac{1}{150}[4E^2e^{-E^2}-2e^{-E^2}]$ donde $(-1 \leq E \leq 1)$
+%
+%%
+% *Regla Compuesta de Simpson*
+% 
+% A diferencia de la _Regla Compuesta del Trapecio_ donde se utilizan
+% polinomios de grado 1, en la _Regla Compuesta de Simpson_ se utilizan
+% polinomios de grado 2, es decir, parábolas comprendidas en 2
+% subintervalos, esto nos quiere decir que necesariamente el intervalo
+% $[a,b]$ debe ser segmentado en _partes pares iguales_.
+% 
+% Con esta idea en mente, la formula sería la siguiente:
+%
+% $\int_{a}^{b}f(t)\;dt=\frac{h}{3}[f(a)+2\sum_{j=1}^{\frac{n}{2}-1}f(x_{2j})+4\sum_{j=1}^{\frac{n}{2}}f(x_{2j-1})+f(b)]-\frac{b-a}{180}h^4[\frac{d^4}{dt^4}f(E)]$
+% donde $(a \leq E \leq b)$
+%
+%%
+% Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante la regla
+% compuesta de Simpson se realiza la aproximación de la siguiente forma: 
+% 
+% * $n=10$
+% * $h=0.2$
+% * $x_0=-1 \qquad f(x_0)=e^{-1}$
+% * $x_1=-0.8 \qquad f(x_1)=e^{-0.64}$
+% * $x_2=-0.6 \qquad f(x_2)=e^{-0.36}$
+% * $x_3=-0.4 \qquad f(x_3)=e^{-0.16}$
+% * $x_4=-0.2 \qquad f(x_4)=e^{-0.04}$
+% * $x_5=0 \qquad f(x_5)=1$
+% * $x_6=0.2 \qquad f(x_6)=e^{-0.04}$
+% * $x_7=0.4 \qquad f(x_7)=e^{-0.16}$
+% * $x_8=0.6 \qquad f(x_8)=e^{-0.36}$
+% * $x_9=0.8 \qquad f(x_9)=e^{-0.64}$
+% * $x_10=1 \qquad f(x_10)=e^{-1}$
+% * $\frac{d^4}{dt^4}f(t)=16t^4e^{-t^2}-48t^2e^{-t^2}+12e^{-t^2}$
+%
+% Luego
+% $\int_{-1}^{1}e^{-t^2}\;dt=\frac{0.2}{3}[e^{-1}+2\sum_{j=1}^{\frac{n}{2}-1}e^{-(x_{2j})^2})+4\sum_{j=1}^{\frac{n}{2}}e^{-(x_{2j-1})^2}+e^{-1}]-\frac{2}{180}(0.2)^4[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$
+% donde $(-1 \leq E \leq 1)$
+%
+% Asi
+% $\int_{-1}^{1}e^{-t^2}\;dt= 1.493674
+% -\frac{2}{180}(0.2)^4[16E^4e^{-E^2}-48E^2e^{-E^2}+12e^{-E^2}]$ donde $(-1 \leq E \leq 1)$
+%
+%%
+% *Cuadratura Gaussiana*
+% 
+% Lo que se pretende en este metodo es realizar la $\int_{a}^{b}f(t)\;dt$
+% como una suma de la evaluación de la función en ciertos puntos
+% multiplicada por ciertas constantes, es decir, como
+% $\sum_{i=1}^{n}C_if(x_i)$.
+%
+% Para esto se utilizan los polinomios de Legendre, que se caracterizan por
+% tener propiedades muy útiles en el intervalo $[-1,1]$ 
+%
+% Para fines prácticos nos fijamos en lo siguiente: 
+%
+% * $P(x)$ es el polinomio de Legendre de grado $n$
+% * $x_1,x_2,...,x_n$ $n$ raices del polinomio
+% * $C_i=\int_{-1}^{1}\prod_{j=1}^{n}\frac{x-x_j}{x_i-x_j}dx$
+%
+% <<PoliLeg.jpg>>
+%
+% <<GrafPoliLeg.jpg>>
+%
+% Luego, la forma en la que se utiliza la Cuadratura Gaussiana de una forma
+% más versatil es mediante tablas
+%
+% <<TablaCG.jpg>>
+%
+% Cabe señalar que este método de cuadratura gaussiana se ocupa
+% generalmente en el intervalo $[-1,1]$, y cuando se requiere realizar una
+% integración en otro intervalo, es necesario hacer el siguiente ajuste:
+%
+% $\int_{a}^{b}f(t)\;dt=\int_{-1}^{1}f(\frac{(b-a)t+a+b}{2})\frac{b-a}{2}\;dt$
+%
+%%
+% Para nuestro ejemplo propuesto $f(t)=e^{-t^2}$  mediante Cuadratura
+% Gaussiana se realiza la aproximación de la siguiente forma:
+%
+% Con $(n=2)$ y apoyandonos en la tabla de raices y coeficientes
+% 
+% $\int_{-1}^{1}e^{-t^2}\;dt=e^{-(0.577350269189626)^2}+e^{-(-0.577350269189626)^2}$
+% $\int_{-1}^{1}e^{-t^2}\;dt= 1.433062$
+%
+% Ahora con $(n=3)$
+% 
+% $\int_{-1}^{1}e^{-t^2}\;dt=0.555555555555556e^{-(-0.774596669241483)^2}+0.888888888888889e^{-(0.0)^2}+0.555555555555556e^{-(0.774596669241483)^2}$
+%
+% $\int_{-1}^{1}e^{-t^2}\;dt= 1.498679$
+%
+%% Ejercicio 1
+%
+% Para el PR04 reporte la grafica de la simulación númerica de la
+% convolución y compare con el resultado análitico que obtuvo para el
+% problema 1, esto es, su práctica tendrá que incluir una llamada a la
+% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales invlucradas como el resultado de
+% la convolución, y en esta última gráficara su resultado analitico, se
+% tendrá que incluir el resultado analitico.
+%
+% Gráficas involucradas
+%
+% <<Conv_ej1.png>>
+%
+% Resultado analítico
+%
+% <<Ejercicio1.jpg>>
+%
+% Llamada a la función
+%
+x= @(t) (-t+1).*(t>=0 &t<1) + (t-1).*(t>=1  & t<2);
+h= @(t) (t>=0 & t<1);
+convconm1(x,h)
+%
+%% Ejercicio 2
+%
+% Para el PR04 reporte la grafica de la simulación númerica de la
+% convolución y compare con el resultado análitico que obtuvo para el
+% problema 3, esto es, su práctica tendrá que incluir una llamada a la
+% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales invlucradas como el resultado de
+% la convolución, y en esta última gráficara su resultado analitico, se
+% tendrá que incluir el resultado analitico.
+%
+% Gráficas involucradas
+%
+% <<Conv_ej2.png>>
+%
+% Resultado analítico
+%
+% <<Ejercicio2.jpg>>
+%
+% Lamada a función
+%
+x= @(t) t.*(t>=0 &t<1) + 1.*(t>=1  & t<2);
+h= @(t) (t>=1 & t<3);
+convconm2(x,h)
+%
+%% Ejercicio 3
+%
+% Para el PR06 reporte la grafica de la simulación númerica de la
+% correalción y compare con el resultado análitico que obtuvo para el
+% problema e), esto es, su práctica tendrá que incluir una llamada a la
+% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales involucradas como el resultado
+% de su correlación, y en esta última graficara su resultado analitico, se
+% tendrá que incluir el resultado analitico.
+%
+% Graficas involucradas
+%
+% <<Conv_ej3.png>>
+%
+% Resultado analítico
+%
+% <<Ejercicio3.jpg>>
+%
+% Lamada a función
+%
+x= @(t) (t>=0 &t<3) - (t>=3  & t<4);
+h= @(t) -(t>=-4 &t<-3) + (t>=-3  & t<0);
+convconm3(x,h)
+%
+%% Ejercicio 4
+%
+% Para el PR06 reporte la grafica de la simulación númerica de la
+% correalción y compare con el resultado análitico que obtuvo para el
+% problema f), esto es, su práctica tendrá que incluir una llamada a la
+% funciónn convconm y posteriormente se tendrá que mostrar (mediante el
+% Publish) la gráfica tanto de las señales involucradas como el resultado
+% de su correlación, y en esta última graficara su resultado analitico, se
+% tendrá que incluir el resultado analitico.
+%
+% Graficas involucradas
+%
+% <<Conv_ej4.png>>
+%
+% Resultado analítico
+%
+% <<Ejercicio4.jpg>>
+%
+% Llamada a Función
+%
+x= @(t) (t>=0 &t<2) - (t>=2  & t<4) ;
+h= @(t) -1.*((t>=-4 & t<-3) - (t>=-3 & t<0));
+convconm(x,h)
+
+##### SOURCE END #####
+--></body></html>
